@@ -3,6 +3,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
     cartItem => cartItem.id === cartItemToAdd.id
   );
 
+  // item already in cart, increase quantity by 1
   if (existingCartItem) {
     return cartItems.map(cartItem =>
       cartItem.id === cartItemToAdd.id
@@ -20,10 +21,12 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
     cartItem => cartItem.id === cartItemToRemove.id
   );
 
+  // quantity is 1, remove item from cart
   if (existingCartItem.quantity === 1) {
     return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
   }
 
+  // otherwise, reduce quantity by 1
   return cartItems.map(cartItem =>
     cartItem.id === cartItemToRemove.id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
